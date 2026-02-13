@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head> 
+    <meta charset="UTF-8">
+    <title>Upload file</title>
+</head>
+<body>
+    <form id="uploadForm" action="https://https://cringetok.onrender.com/8080/upload" method="post" enctype="multipart/form-data">
+        <label for="fileInput"> Choose a file:</label>
+        <input type="file" id="fileInput" name="file">
+        
+        <label>Mood:</label>
+        <select name="mood" required>
+            <option value="sad">😢 - DEPRESSED</option>
+            <option value="happy">😂 - HAPPY</option>
+            <option value="playful">🤪 - PLAYFUL</option>
+        </select>
+        <br><br>
+        <button type="submit">Upload file</button>
+        <p id="errorLog" style="color: red; font-weight: bold;"></p>
+    </form>
+
+    <script>
+    document.getElementById('uploadForm').addEventListener('submit', function(e) {
+        const fileInput = document.getElementById('fileInput');
+        const errorLog = document.getElementById('errorLog');
+        const maxSize = 10 * 1024 * 1024;
+        if (fileInput.files.length > 0) {
+            const fileSize = fileInput.files[0].size; 
+            if (fileSize > maxSize) {
+                e.preventDefault();
+                errorLog.innerText = "Ошибка: Файл слишком большой! Максимум 10 МБ.";
+            } else {
+                errorLog.innerText = "";
+            }
+        } else {
+            e.preventDefault();
+            errorLog.innerText = "Пожалуйста, выберите файл перед отправкой.";
+        }
+    });
+    </script>
+</body>
+</html>
